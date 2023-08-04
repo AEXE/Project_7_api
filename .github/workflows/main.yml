@@ -2,23 +2,44 @@ name: Flask CI
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+
+env:
+  AZURE_WEBAPP_NAME: p7-api   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'         # set this to the path to your web app project, defaults to the repository root
+  PYTHON_VERSION: '3.11'                  # set this to the python version to use (supports 3.6, 3.7, 3.8)
 
 jobs:
-  build:
-
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.11
+    - name: 'Checkout GitHub Action'
+      uses: actions/checkout@master
+
+    - name: Set up Python version
       uses: actions/setup-python@v2
       with:
-        python-version: 3.11
-    - name: Install dependencies
+        python-version: ${{ env.PYTHON_VERSION }}
+
+    - name: 'Install Requirements'
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
-    - name: Test with pytest
+
+    - name: 'Run Tests'
       run: |
         pytest
+
+    - name: 'Login via Azure CLI'
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: 'Deploy to Azure Web App'
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+

@@ -10,9 +10,7 @@ model = lgb.Booster(model_file='final_model.txt')
 
 df = pd.read_csv('df_final_1000.csv')
 df.drop('Unnamed: 0', axis=1, inplace=True)
-print(df.shape)
 for col in df.columns:
-    print(col)
     try:
         df[col] = df[col].astype(float)
     except Exception as e:
@@ -44,7 +42,6 @@ def predict(row_num):
     user_data = {}
     for col in top_features:
         user_data[col] = sample[col]
-    print(user_data)
     return jsonify({
         "prediction": bool(prediction > 0.5),
         "top_features": top_features,

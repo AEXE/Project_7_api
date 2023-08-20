@@ -1,12 +1,12 @@
 from flask import Flask, request, jsonify
-import lightgbm as lgb
+from lightgbm import Booster
 import shap
 import numpy as np
 import pandas as pd
 
 app = Flask(__name__)
 
-model = lgb.Booster(model_file='final_model.txt')
+model = Booster(model_file='final_model.txt')
 
 df = pd.read_csv('df_final_1000.csv')
 df.drop('Unnamed: 0', axis=1, inplace=True)

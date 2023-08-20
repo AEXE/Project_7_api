@@ -16,6 +16,9 @@ for col in df.columns:
     except Exception as e:
         print(f"Error with column {col}: {e}")
 
+
+model.params['objective'] = 'binary' # or whatever is appropriate
+
 explainer = shap.TreeExplainer(model)
 
 

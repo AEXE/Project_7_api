@@ -16,4 +16,5 @@ ENV FLASK_ENV=production
 
 EXPOSE 8080
 
-CMD ["flask", "run"]
+CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8080", "--workers", "3"]
+

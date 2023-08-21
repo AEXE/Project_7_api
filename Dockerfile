@@ -14,6 +14,6 @@ ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=127.0.0.1
 ENV FLASK_ENV=production
 
-EXPOSE 5003
+EXPOSE 80
 
 CMD ["flask", "run"]

@@ -69,4 +69,4 @@ def get_data_for_features():
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(port=5003)

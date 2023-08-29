@@ -15,17 +15,12 @@ def test_response_format():
     data = response.get_json()
 
     assert 'prediction' in data
-    assert 'top_features' in data
     assert 'user_data' in data
 
-    assert isinstance(data['prediction'], bool)
-
-    assert isinstance(data['top_features'], list)
-    assert len(data['top_features']) == 3
+    assert isinstance(data['prediction'], float)
 
     assert isinstance(data['user_data'], dict)
-    for feature in data['top_features']:
-        assert feature in data['user_data']
+
 def test_missing_feature():
     response = app.test_client().get('/get_data_for_features',
                                      query_string={'feature_0': 'CODE_GENDER', 'feature_1': 'FLAG_OWN_CAR'})

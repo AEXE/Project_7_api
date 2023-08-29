@@ -39,16 +39,15 @@ def predict(row_num):
     if isinstance(shap_values, list):
         shap_values = shap_values[1]
 
-    top_features_idx = np.argsort(np.abs(shap_values[0]))[-3:]
-    top_features = sample_df.columns[top_features_idx].tolist()
 
     user_data = {}
-    for col in top_features:
+    for col in df.columns:
         user_data[col] = sample[col]
     return jsonify({
-        "prediction": bool(prediction > 0.5),
-        "top_features": top_features,
-        "user_data": user_data
+        "prediction": prediction,
+        "user_data": user_data,
+        "shap_values": list(shap_values.flatten()),
+        "features": list(sample_df.columns),
     })
 
 
@@ -68,5 +67,5 @@ def get_data_for_features():
     return jsonify(raw_data)
 
 
-#if __name__ == '__main__':
-#    app.run(port=8080)
+if __name__ == '__main__':
+    app.run(port=8080)

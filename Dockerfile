@@ -15,7 +15,6 @@ ENV FLASK_RUN_HOST=127.0.0.1
 ENV FLASK_ENV=production
 
 EXPOSE 8080
-EXPOSE 80
 
 CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8080", "--workers", "3"]
 

@@ -10,11 +10,7 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 
-ENV FLASK_APP=app.py
-ENV FLASK_RUN_HOST=127.0.0.1
-ENV FLASK_ENV=production
+EXPOSE 50505
 
-EXPOSE 8080
-
-CMD ["gunicorn", "app:app", "-b", "0.0.0.0:8080", "--workers", "3"]
+ENTRYPOINT ["gunicorn", "app:app"]
 

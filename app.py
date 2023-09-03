@@ -71,6 +71,3 @@ def hi():
     return jsonify({"lala": "lala"})
 
 
-
-if __name__ == '__main__':
-    app.run(port=8080)

@@ -66,3 +66,8 @@ def get_data_for_features():
         return jsonify({"error": "One or more features are invalid!"}), 400
     return jsonify(raw_data)
 
+@app.route('/', methods=['GET'])
+def hi():
+    return jsonify({"lala": "lala"})
+
+

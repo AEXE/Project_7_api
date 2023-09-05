@@ -10,7 +10,7 @@ RUN pip install --upgrade pip && \
     pip install --no-cache-dir -r requirements.txt
 
 
-EXPOSE 50505
+EXPOSE 5000
 
-ENTRYPOINT ["gunicorn", "app:app"]
+CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
 
